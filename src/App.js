@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Routes,
+} from "react-router-dom";
+import "./App.css";
+import { Card } from "./components/Card/Card";
+import content from "./content";
+import Products from "./pages/Products";
 
-function App() {
+const Layout = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <Header />
+      <Outlet />
+      <Footer /> */}
     </div>
   );
-}
+};
+
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      { path: "/products/:id", element: <Products /> },
+      //{ path: "/product/:id", element: <ProductDetails /> },
+      //{ path: "/search", element: <Search /> },
+    ],
+  },
+]);
+
+const App = () => {
+  return (
+    <div className="App">
+      {content.map((content) => (
+        <Card
+          key={content.id}
+          image={content.image}
+          name={content.name}
+          information={content.information}
+          type={content.type}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default App;
